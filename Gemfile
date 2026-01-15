@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 gem "rails", "~> 8.1.2"
 
+gem "bcrypt"
 gem "bootsnap", require: false
 gem "cssbundling-rails"
 gem "image_processing", "~> 1.2"
