@@ -18,17 +18,21 @@ class MoviesController < ApplicationController
   def create
     @movie = Movie.new(movie_params)
 
-    @movie.save
-
-    redirect_to @movie
+    if @movie.save
+      redirect_to @movie
+    else
+      render :new, status: :unprocessable_content
+    end
   end
 
   def update
     @movie = Movie.find(params[:id])
 
-    @movie.update(movie_params)
-
-    redirect_to @movie
+    if @movie.update(movie_params)
+      redirect_to @movie
+    else
+      render :edit, status: :unprocessable_content
+    end
   end
 
   def destroy
