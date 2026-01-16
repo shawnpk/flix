@@ -41,7 +41,9 @@
   </div>
 </section>
 
-<section class='admin'>
-  <%= link_to 'Edit', edit_movie_path(@movie), class: 'button' %>
-  <%= button_to 'Delete', @movie, method: :delete, data: { turbo_confirm: 'Really?!' }, class: 'button' %>
-</section>
+<% if current_user_admin? %>
+  <section class='admin'>
+    <%= link_to 'Edit', edit_movie_path(@movie), class: 'button' %>
+    <%= button_to 'Delete', @movie, method: :delete, data: { turbo_confirm: 'Really?!' }, class: 'button' %>
+  </section>
+<% end %>
