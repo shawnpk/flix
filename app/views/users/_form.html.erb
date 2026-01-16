@@ -13,5 +13,5 @@
   <%= form.label :password_confirmation, 'Confirm Password' %>
   <%= form.password_field :password_confirmation %>
 
-  <%= form.submit %>
+  <%= form.submit @user.new_record? ? 'Create Account' : 'Update Account' %>
 <% end %>
