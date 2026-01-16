@@ -12,7 +12,14 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
 
+  def current_user?(user)
+    current_user == user
+  end
+  helper_method :current_user?
+
   def require_signin
+    session[:intended_url] = request.fullpath
+
     redirect_to new_session_path, alert: "Please sign in first" unless current_user
   end
 end

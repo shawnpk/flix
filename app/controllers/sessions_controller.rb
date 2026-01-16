@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
 
-      redirect_to user, notice: "Welcome back, #{user.name}!"
+      redirect_to (session.delete(:intended_url) || user), notice: "Welcome back, #{user.name}!"
     else
       flash.now[:alert] = "Invalid email/password combination"
 
