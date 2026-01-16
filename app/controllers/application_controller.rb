@@ -17,6 +17,15 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user?
 
+  def current_user_admin?
+    current_user&.admin?
+  end
+  helper_method :current_user_admin?
+
+  def require_admin
+    redirect_to movies_path, alert: "Not authorized" unless current_user_admin?
+  end
+
   def require_signin
     session[:intended_url] = request.fullpath
 
