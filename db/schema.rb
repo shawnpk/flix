@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_18_160710) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_18_213000) do
   create_table "characterizations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "genre_id", null: false
@@ -43,6 +43,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_18_160710) do
     t.string "image_file_name", default: "placeholder.png"
     t.string "rating"
     t.date "released_on"
+    t.string "slug"
     t.string "title"
     t.decimal "total_gross"
     t.datetime "updated_at", null: false

@@ -1,4 +1,6 @@
 class Movie < ApplicationRecord
+  before_save :set_slug
+
   has_many :characterizations, dependent: :destroy
   has_many :genres, through: :characterizations
   has_many :favorites, dependent: :destroy
@@ -12,7 +14,7 @@ class Movie < ApplicationRecord
   validates :total_gross, numericality: { greater_than_or_equal_to: 0 }
   validates :rating, inclusion: { in: RATINGS }
   validates :image_file_name, format: {
-    with: /\A\w+\.(jpg|png)\z/i,
+    with: /\A[\w-]+\.(jpg|png)\z/i,
     message: "must be a JPG or PNG image"
   }
 
@@ -21,12 +23,22 @@ class Movie < ApplicationRecord
   scope :upcoming, -> { where("released_on > ?", Time.current). order(released_on: :asc) }
 
   def flop?
-    unless reviews.count >= 50 && average_stars >= 4
+    unless (reviews.count >= 50 && average_stars >= 4) || Movie.upcoming
       (total_gross.blank? || total_gross < 225_000_000)
     end
   end
 
   def average_stars
     reviews.average(:stars) || 0.0
+  end
+
+  def to_param
+    slug
+  end
+
+  private
+
+  def set_slug
+    self.slug = title.parameterize
   end
 end
