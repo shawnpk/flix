@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   end
   resources :users
 
+  get "movies/filter/:filter", to: "movies#index", as: :filtered_movies
   get "signup", to: "users#new"
   get "signin", to: "sessions#new"
 
