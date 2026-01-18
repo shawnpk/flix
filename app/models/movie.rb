@@ -16,7 +16,9 @@ class Movie < ApplicationRecord
     message: "must be a JPG or PNG image"
   }
 
-  scope :released, -> { where("released_on > ?", Time.current).order(released_on: :desc) }
+  scope :recent, ->(max = 5) { released.first(max) }
+  scope :released, -> { where("released_on < ?", Time.current).order(released_on: :desc) }
+  scope :upcoming, -> { where("released_on > ?", Time.current). order(released_on: :asc) }
 
   def flop?
     unless reviews.count >= 50 && average_stars >= 4
