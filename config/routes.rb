@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :genres
   resource :session, only: [ :new, :create, :destroy ]
 
   resources :movies do
